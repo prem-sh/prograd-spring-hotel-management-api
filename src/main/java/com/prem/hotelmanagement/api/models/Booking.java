@@ -1,6 +1,7 @@
 package com.prem.hotelmanagement.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,16 +13,19 @@ import java.util.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JacksonXmlProperty(isAttribute = true)
     private long id;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "customer_id", nullable = false, referencedColumnName = "id")
-    @JsonIgnoreProperties(value = "bookings", allowSetters = true)
+    @JsonIgnoreProperties(value = {"bookings"}, allowSetters = true)
+    @JacksonXmlProperty(localName = "Customer")
     private Customer customerId;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "room_id", nullable = false, referencedColumnName = "room_id")
-    @JsonIgnoreProperties(value = {"bookings", "id"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"bookings"}, allowSetters = true)
+    @JacksonXmlProperty(localName = "Room")
     private Room roomId;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,6 +37,7 @@ public class Booking {
     private Date outTime;
 
     @Column(name = "rent")
+    @JacksonXmlProperty(isAttribute = true)
     private double rent;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)

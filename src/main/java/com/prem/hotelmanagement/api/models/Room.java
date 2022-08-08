@@ -1,6 +1,8 @@
 package com.prem.hotelmanagement.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,12 +13,15 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "room")
+@JacksonXmlRootElement(localName = "Room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_id")
+    @JacksonXmlProperty(isAttribute = true)
     int roomId;
     @Column(name = "room_number", nullable = false, unique = true)
+    @JacksonXmlProperty(isAttribute = true)
     int roomNo;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)

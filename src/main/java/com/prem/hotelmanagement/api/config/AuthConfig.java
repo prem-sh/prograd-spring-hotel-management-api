@@ -22,24 +22,26 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests().antMatchers("/help","/help/**").permitAll().and()
-                .authorizeRequests().antMatchers("/admin/**").access("hasRole('ADMIN')").and()
-//                .authorizeRequests().antMatchers("/admin/employee").access("hasRole('ADMIN')").and()
+                .csrf()
+                    .disable()
 
-                .authorizeRequests().antMatchers(HttpMethod.GET,"/rooms").permitAll().and()
-                .authorizeRequests().antMatchers(HttpMethod.POST,"/rooms").access("hasRole('ADMIN') or hasRole('RECEPTIONIST')").and()
+                .httpBasic()
 
-                .authorizeRequests().antMatchers(HttpMethod.GET,"/user","/user/*").access("hasRole('ADMIN') or hasRole('RECEPTIONIST')").and()
-                .authorizeRequests().antMatchers("/user","/user/*").access("hasRole('RECEPTIONIST')").and()
+                .and()
+                .authorizeRequests()
+                    .antMatchers("/help","/help/**").permitAll()
+                    .antMatchers(HttpMethod.GET,"/rooms","/rooms/**").permitAll()
 
-                .authorizeRequests().antMatchers(HttpMethod.GET,"/bookings","/bookings/*").access("hasRole('ADMIN') or hasRole('RECEPTIONIST')").and()
-                .authorizeRequests().antMatchers("/bookings","/bookings/*").access("hasRole('RECEPTIONIST')").and()
+                    .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                    .antMatchers(HttpMethod.POST,"/rooms").hasAnyAuthority("ADMIN")
 
-                .authorizeRequests().anyRequest().authenticated().and()
+                    .antMatchers("/user","/user/**").hasAnyAuthority( "RECEPTIONIST")
+                    .antMatchers("/bookings","/bookings/**").hasAnyAuthority( "RECEPTIONIST")
+                    .anyRequest().authenticated()
 
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .httpBasic();
+                .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

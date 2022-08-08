@@ -1,5 +1,6 @@
 package com.prem.hotelmanagement.api.models;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,8 +16,10 @@ public class RoomType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
+    @JacksonXmlProperty(isAttribute = true)
     private String name;
     @Column(nullable = false)
+    @JacksonXmlProperty(isAttribute = true)
     private Double rentPerHour;
 
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL)

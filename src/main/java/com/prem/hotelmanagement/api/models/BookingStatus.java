@@ -1,5 +1,6 @@
 package com.prem.hotelmanagement.api.models;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class BookingStatus implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "name")
+    @JacksonXmlProperty(isAttribute = true)
     private String name;
     @OneToMany(mappedBy = "bookingStatus", cascade = CascadeType.ALL)
     private Set<Booking> bookings = new HashSet<>();
