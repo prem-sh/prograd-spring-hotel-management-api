@@ -4,7 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,5 +18,5 @@ public class BookingStatus implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "bookingStatus", cascade = CascadeType.ALL)
-    private List<Booking> bookings = new java.util.ArrayList<>();
+    private Set<Booking> bookings = new HashSet<>();
 }

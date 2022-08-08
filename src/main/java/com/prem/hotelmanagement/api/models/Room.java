@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,6 +30,6 @@ public class Room {
     private RoomStatus roomStatus;
 
     @OneToMany(mappedBy = "roomId", cascade = CascadeType.REMOVE)
-    private List<Booking> bookings = new java.util.ArrayList<>();
+    private Set<Booking> bookings = new HashSet<>();
 
 }

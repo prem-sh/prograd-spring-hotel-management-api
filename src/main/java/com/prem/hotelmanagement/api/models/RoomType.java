@@ -4,7 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -19,5 +20,5 @@ public class RoomType implements Serializable {
     private Double rentPerHour;
 
     @OneToMany(mappedBy = "roomType", cascade = CascadeType.ALL)
-    private List<Room> rooms = new java.util.ArrayList<>();
+    private Set<Room> rooms = new HashSet<>();
 }

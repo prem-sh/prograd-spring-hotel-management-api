@@ -4,14 +4,16 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "name", nullable = false, length = 30)
     private String name;
@@ -21,7 +23,7 @@ public class Customer {
     private String phone;
 
     @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
-    private List<Booking> bookings = new java.util.ArrayList<>();
+    private Set<Booking> bookings = new HashSet<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", insertable = true, updatable = false)
