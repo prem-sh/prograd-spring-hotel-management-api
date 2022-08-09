@@ -1,6 +1,8 @@
 package com.prem.hotelmanagement.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
@@ -27,11 +29,6 @@ public class Customer {
     @Column(name = "phone", nullable = false, length = 15)
     @JacksonXmlProperty(isAttribute = true)
     private String phone;
-
-    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value = {"customerId"}, allowSetters = true)
-    @JacksonXmlElementWrapper(localName = "Bookings")
-    private Set<Booking> bookings = new HashSet<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", insertable = true, updatable = false)

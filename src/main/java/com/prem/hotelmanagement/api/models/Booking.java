@@ -1,5 +1,6 @@
 package com.prem.hotelmanagement.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
@@ -18,7 +19,6 @@ public class Booking {
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinColumn(name = "customer_id", nullable = false, referencedColumnName = "id")
-    @JsonIgnoreProperties(value = {"bookings"}, allowSetters = true)
     @JacksonXmlProperty(localName = "Customer")
     private Customer customerId;
 
